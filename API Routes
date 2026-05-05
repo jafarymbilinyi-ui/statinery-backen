@@ -1,0 +1,30 @@
+const express = require('express');
+const app = express();
+app.use(express.json()); // Inaruhusu server kusoma data za JSON zinazotumwa
+
+const PORT = process.env.PORT || 10000;
+
+// 1. Route ya kuona bidhaa zote (GET)
+app.get('/api/products', (req, res) => {
+  const products = [
+    { id: 1, name: "Daftari", price: 1500 },
+    { id: 2, name: "Kalamu", price: 500 }
+  ];
+  res.json(products);
+});
+
+// 2. Route ya kuongeza bidhaa mpya (POST)
+app.post('/api/products', (req, res) => {
+  const newProduct = req.body;
+  console.log("Bidhaa mpya iliyopokelewa:", newProduct);
+  res.status(201).send(`Bidhaa ya ${newProduct.name} imeongezwa!`);
+});
+
+// Route ya msingi (Home)
+app.get('/', (req, res) => {
+  res.send('Stationery Backend is Running Successfully!');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
